@@ -1,4 +1,4 @@
-# 🤖 AI Research & Knowledge Assistant
+# 🤖 AI KnowledgeMate
 
 > *An intelligent AI-powered assistant that reads, remembers, and reasons — turning raw data into actionable insights.*
 
@@ -6,7 +6,7 @@
 
 ## 🚀 Overview
 
-The **AI Research & Knowledge Assistant** is a next-generation personal research agent designed for students, researchers, and professionals.  
+The **AI KnowledgeMate** is a next-generation personal research agent designed for students, researchers, and professionals.  
 It combines **Large Language Models (LLMs), Vector Databases, and Advanced Prompt Engineering** to provide:
 - Instant answers from your documents and notes
 - Research comparisons from live sources (Wikipedia, arXiv, Google, etc.)
