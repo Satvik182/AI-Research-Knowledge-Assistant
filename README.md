@@ -97,3 +97,11 @@ If you have any questions or need support, please open an issue on GitHub.
 Zero-Shot Prompting :
         Summarize this research paper in 5 key points.
 
+One-Shot Prompting :
+        Example: 
+            Input: "Explain Quantum Computing in simple terms."
+            Output: "Quantum computing uses qubits that can represent 0 and 1 simultaneously, allowing faster problem-solving."
+
+            Now, Input: "Explain Generative AI in simple terms."
+
+
