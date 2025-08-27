@@ -1,4 +1,6 @@
-# 🤖 AI KnowledgeMate
+
+# 🤖AI KnowledgeMate
+
 
 > *An intelligent AI-powered assistant that reads, remembers, and reasons — turning raw data into actionable insights.*
 
@@ -7,7 +9,9 @@
 ## 🚀 Overview
 
 The **AI KnowledgeMate** is a next-generation personal research agent designed for students, researchers, and professionals.  
+
 It combines **Large Language Models (LLMs), Vector Databases, and Advanced Prompt Engineering** to provide:
+
 - Instant answers from your documents and notes
 - Research comparisons from live sources (Wikipedia, arXiv, Google, etc.)
 - Smart summaries, quizzes, and structured reports
@@ -87,3 +91,9 @@ We welcome contributions! Please feel free to submit a Pull Request.
 ## 📞 Support
 
 If you have any questions or need support, please open an issue on GitHub.
+
+
+
+Zero-Shot Prompting :
+        Summarize this research paper in 5 key points.
+
