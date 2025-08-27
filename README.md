@@ -105,3 +105,13 @@ One-Shot Prompting :
             Now, Input: "Explain Generative AI in simple terms."
 
 
+Multi-Shot Prompting  :
+        Example 1:  
+            Input: "Summarize: 'AI can help doctors detect diseases early.'"  
+            Output: "AI enables early disease detection."
+
+        Example 2:  
+            Input: "Summarize: 'Renewable energy reduces pollution and saves costs.'"  
+            Output: "Renewables cut pollution and save money."
+
+        Now, Input: "Summarize: 'Generative AI creates new content like images, text, and music.'"
