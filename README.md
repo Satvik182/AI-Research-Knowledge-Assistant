@@ -125,3 +125,9 @@ Chain-of-Thought Prompting (CoT) :
         2. Reason step by step.  
         3. Summarize the reasoning.  
         4. Finally, give the answer in 2–3 sentences.
+
+Dynamic Prompting :
+        If the input is a short question, give a one-line answer.  
+        If the input is a long research document, provide a 5-point summary.  
+
+        Input: "Explain Blockchain."
