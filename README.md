@@ -131,3 +131,7 @@ Dynamic Prompting :
         If the input is a long research document, provide a 5-point summary.  
 
         Input: "Explain Blockchain."
+
+System & User Prompt (RTFC Framework) :
+        System: "You are AI KnowledgeMate, an assistant that summarizes academic research clearly."  
+        User: "Summarize the key points of this 10-page PDF."  
