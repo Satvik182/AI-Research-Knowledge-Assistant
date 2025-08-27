@@ -115,3 +115,13 @@ Multi-Shot Prompting  :
             Output: "Renewables cut pollution and save money."
 
         Now, Input: "Summarize: 'Generative AI creates new content like images, text, and music.'"
+
+Chain-of-Thought Prompting (CoT) :
+        You are AI KnowledgeMate, a research assistant. 
+        Question: "What are the main contributions of the latest research on Generative AI?"  
+
+        Steps to follow:  
+        1. Break the question into smaller parts.  
+        2. Reason step by step.  
+        3. Summarize the reasoning.  
+        4. Finally, give the answer in 2–3 sentences.
