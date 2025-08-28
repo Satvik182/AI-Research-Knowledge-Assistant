@@ -33,28 +33,29 @@ function calculateCost(provider, usage) {
   return 0;
 }
 
-// OpenAI API call with token logging, temperature and top-k style control
-// topK is approximated using top_p where top_p ≈ topKNormalization(topK)
-async function getOpenAIResponse(prompt, temperature = 0.7, topK = undefined) {
+// OpenAI API call with token logging, temperature, Top-K (approx) and Top-P control
+// If topP is provided, it takes precedence. Otherwise, topK is approximated via top_p.
+async function getOpenAIResponse(prompt, temperature = 0.7, topK = undefined, topP = undefined) {
   try {
     console.log(`🤖 OpenAI Request: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
     console.log(`🌡️ Temperature: ${temperature}`);
-    if (topK !== undefined) {
-      console.log(`🔢 Top-K: ${topK} (approximated via top_p)`);
-    }
+    if (topK !== undefined) console.log(`🔢 Top-K: ${topK} (approx via top_p)`);
+    if (topP !== undefined) console.log(`🧮 Top-P: ${topP}`);
 
-    // Approximate topK using top_p: smaller p ~ smaller candidate mass
-    const topP = topK !== undefined ? Math.max(0.05, Math.min(1, 0.04 * topK)) : undefined;
+    // Determine effective top_p
+    const effectiveTopP = topP !== undefined
+      ? Math.max(0.01, Math.min(1, Number(topP)))
+      : (topK !== undefined ? Math.max(0.05, Math.min(1, 0.04 * topK)) : undefined);
     
     const response = await openaiClient.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: temperature,
-      ...(topP !== undefined ? { top_p: topP } : {}),
+      ...(effectiveTopP !== undefined ? { top_p: effectiveTopP } : {}),
     });
 
     console.log("✅ OpenAI Response:", response.choices[0].message.content);
-    if (topP !== undefined) console.log(`   (Used top_p: ${topP.toFixed(2)} as Top-K approximation)`);
+    if (effectiveTopP !== undefined) console.log(`   (Used top_p: ${effectiveTopP.toFixed(2)})`);
     logTokens('openai', response.usage);
     
     return response.choices[0].message.content;
@@ -109,11 +110,11 @@ async function demonstrateTokenLogging() {
     console.log("\n🌡️ Low Temperature (0.1) - More Focused/Deterministic:");
     await getOpenAIResponse(testPrompt, 0.1, 10);
     
-    console.log("\n🌡️ Medium Temperature (0.7) - Balanced Creativity (Top-K=25):");
-    await getOpenAIResponse(testPrompt, 0.7, 25);
+    console.log("\n🌡️ Medium Temperature (0.7) - Balanced Creativity (Top-K=25, Top-P=0.9):");
+    await getOpenAIResponse(testPrompt, 0.7, 25, 0.9);
     
-    console.log("\n🌡️ High Temperature (1.0) - More Creative/Random (Top-K=50):");
-    await getOpenAIResponse(testPrompt, 1.0, 50);
+    console.log("\n🌡️ High Temperature (1.0) - More Creative/Random (Top-K=50, Top-P=0.6):");
+    await getOpenAIResponse(testPrompt, 1.0, 50, 0.6);
     
     // Test Embeddings
     console.log("\n📝 Testing OpenAI Embeddings...");
