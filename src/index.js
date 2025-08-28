@@ -33,19 +33,28 @@ function calculateCost(provider, usage) {
   return 0;
 }
 
-// OpenAI API call with token logging and temperature control
-async function getOpenAIResponse(prompt, temperature = 0.7) {
+// OpenAI API call with token logging, temperature and top-k style control
+// topK is approximated using top_p where top_p ≈ topKNormalization(topK)
+async function getOpenAIResponse(prompt, temperature = 0.7, topK = undefined) {
   try {
     console.log(`🤖 OpenAI Request: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
     console.log(`🌡️ Temperature: ${temperature}`);
+    if (topK !== undefined) {
+      console.log(`🔢 Top-K: ${topK} (approximated via top_p)`);
+    }
+
+    // Approximate topK using top_p: smaller p ~ smaller candidate mass
+    const topP = topK !== undefined ? Math.max(0.05, Math.min(1, 0.04 * topK)) : undefined;
     
     const response = await openaiClient.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
       temperature: temperature,
+      ...(topP !== undefined ? { top_p: topP } : {}),
     });
 
     console.log("✅ OpenAI Response:", response.choices[0].message.content);
+    if (topP !== undefined) console.log(`   (Used top_p: ${topP.toFixed(2)} as Top-K approximation)`);
     logTokens('openai', response.usage);
     
     return response.choices[0].message.content;
@@ -98,13 +107,13 @@ async function demonstrateTokenLogging() {
     const testPrompt = "Write a creative story about a robot learning to paint.";
     
     console.log("\n🌡️ Low Temperature (0.1) - More Focused/Deterministic:");
-    await getOpenAIResponse(testPrompt, 0.1);
+    await getOpenAIResponse(testPrompt, 0.1, 10);
     
-    console.log("\n🌡️ Medium Temperature (0.7) - Balanced Creativity:");
-    await getOpenAIResponse(testPrompt, 0.7);
+    console.log("\n🌡️ Medium Temperature (0.7) - Balanced Creativity (Top-K=25):");
+    await getOpenAIResponse(testPrompt, 0.7, 25);
     
-    console.log("\n🌡️ High Temperature (1.0) - More Creative/Random:");
-    await getOpenAIResponse(testPrompt, 1.0);
+    console.log("\n🌡️ High Temperature (1.0) - More Creative/Random (Top-K=50):");
+    await getOpenAIResponse(testPrompt, 1.0, 50);
     
     // Test Embeddings
     console.log("\n📝 Testing OpenAI Embeddings...");
