@@ -1,0 +1,33 @@
+{
+  "name": "ai_knowledgemate",
+  "version": "1.0.0",
+  "description": "An intelligent AI-powered assistant that reads, remembers, and reasons — turning raw data into actionable insights.",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "demo": "node scripts/demo-tokens.js",
+    "test": "node scripts/simple-test.js",
+    "dev": "node scripts/test-tokens.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Satvik182/AI_KnowledgeMate.git"
+  },
+  "keywords": [
+    "AI",
+    "KnowledgeMate",
+    "OpenAI",
+    "Tokenization"
+  ],
+  "author": "Satvik Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Satvik182/AI_KnowledgeMate/issues"
+  },
+  "homepage": "https://github.com/Satvik182/AI_KnowledgeMate#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "openai": "^5.16.0"
+  }
+}
