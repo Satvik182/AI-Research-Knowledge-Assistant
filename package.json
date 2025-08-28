@@ -12,7 +12,9 @@
     "temp": "node scripts/temperature-demo.js",
     "temp-mock": "node scripts/temperature-mock.js",
     "topk": "node scripts/topk-demo.js",
-    "topk-mock": "node scripts/topk-mock.js"
+    "topk-mock": "node scripts/topk-mock.js",
+    "topp": "node scripts/topp-demo.js",
+    "topp-mock": "node scripts/topp-mock.js"
   },
   "repository": {
     "type": "git",
