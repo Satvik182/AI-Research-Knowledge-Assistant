@@ -33,14 +33,16 @@ function calculateCost(provider, usage) {
   return 0;
 }
 
-// OpenAI API call with token logging
-async function getOpenAIResponse(prompt) {
+// OpenAI API call with token logging and temperature control
+async function getOpenAIResponse(prompt, temperature = 0.7) {
   try {
     console.log(`🤖 OpenAI Request: "${prompt.substring(0, 50)}${prompt.length > 50 ? '...' : ''}"`);
+    console.log(`🌡️ Temperature: ${temperature}`);
     
     const response = await openaiClient.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [{ role: "user", content: prompt }],
+      temperature: temperature,
     });
 
     console.log("✅ OpenAI Response:", response.choices[0].message.content);
@@ -86,21 +88,29 @@ async function getOpenAIEmbeddings(text) {
 
 // Main demonstration function
 async function demonstrateTokenLogging() {
-  console.log("🚀 AI KnowledgeMate - Token Logging Demonstration");
+  console.log("🚀 AI KnowledgeMate - Token Logging & Temperature Demonstration");
   console.log("=".repeat(60));
   
   try {
-    // Test OpenAI
-    console.log("\n📝 Testing OpenAI GPT-4o-mini...");
-    await getOpenAIResponse("What are tokens in AI? Explain in simple terms.");
+    // Test OpenAI with different temperatures
+    console.log("\n📝 Testing OpenAI GPT-4o-mini with different temperatures...");
     
-
+    const testPrompt = "Write a creative story about a robot learning to paint.";
+    
+    console.log("\n🌡️ Low Temperature (0.1) - More Focused/Deterministic:");
+    await getOpenAIResponse(testPrompt, 0.1);
+    
+    console.log("\n🌡️ Medium Temperature (0.7) - Balanced Creativity:");
+    await getOpenAIResponse(testPrompt, 0.7);
+    
+    console.log("\n🌡️ High Temperature (1.0) - More Creative/Random:");
+    await getOpenAIResponse(testPrompt, 1.0);
     
     // Test Embeddings
     console.log("\n📝 Testing OpenAI Embeddings...");
     await getOpenAIEmbeddings("This is a test sentence for embedding generation.");
     
-    console.log("\n🎉 All API calls completed with token logging!");
+    console.log("\n🎉 All API calls completed with token logging and temperature control!");
     
   } catch (error) {
     console.error("❌ Demonstration failed:", error.message);
