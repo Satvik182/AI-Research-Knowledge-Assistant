@@ -8,7 +8,9 @@
     "start": "node src/index.js",
     "demo": "node scripts/demo-tokens.js",
     "test": "node scripts/simple-test.js",
-    "dev": "node scripts/test-tokens.js"
+    "dev": "node scripts/test-tokens.js",
+    "temp": "node scripts/temperature-demo.js",
+    "temp-mock": "node scripts/temperature-mock.js"
   },
   "repository": {
     "type": "git",
